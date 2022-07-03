@@ -18,6 +18,8 @@
 				<br>
 				<h4>Maximum supply of NFT's are 10, So can't mint more than that and every user can mint upto 3 times</h4>
 				<p>wallet address - <span id="wallet-address"></span></p>
+				<label>Addresss</label>
+				<input type="text" name="nfttoken">
 
 				<button id="mint">Mint an NFT</button>
 
@@ -156,7 +158,7 @@
 			},
 			{
 				"internalType": "bytes",
-				"name": "_data",
+				"name": "data",
 				"type": "bytes"
 			}
 		],
@@ -465,7 +467,7 @@
 		"type": "function"
 	}
 ];
-		const ADDRESS = "0x8B904feA53DB145D05CF1df65dCC7033eEC49a39";
+		const ADDRESS = "0x656e025A17A27f8E4547f42C20ef862afB06D247";
 
 		(async () => {
 			if (window.ethereum) {
@@ -478,7 +480,8 @@
 
 				contract = new web3.eth.Contract(ABI, ADDRESS);
 				document.getElementById("mint").onclick = () => {
-					contract.methods.Mint(account).send({ from: account })
+					var nfttoken = document.querySelector("[name=nfttoken]").value;
+					contract.methods.Mint(nfttoken).send({ from: account })
 				}
 				var totalSupply = await contract.methods.totalSupply().call();
 				document.getElementById('tot').textContent = totalSupply;
